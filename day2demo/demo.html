@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>demo lottery in canvas</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        .contain{
+            width:200px;
+            height:100px;
+            border:1px solid red;
+            margin:10px auto;
+            text-align: center;
+            line-height:100px;
+            position: relative;
+        }
+        .contain span{
+            font-size:30px;
+            font-weight: bold;
+            color:red;
+        }
+        #myCanvas{
+            position:absolute;
+            left:0;
+            top:0;
+        }
+    </style>
+</head>
+<body>
+    <div class="contain">
+        <span></span>
+        <canvas id="myCanvas"></canvas>
+    </div>
+    <script>
+        let canvas = document.getElementById('myCanvas');
+        
+        (function (){
+            let ctx = canvas.getContext('2d');
+            canvas.width = 200;
+            canvas.height = 100;
+            layer(ctx);
+            scratch(ctx);
+            content();
+            document.onselect =function(){
+                return false;
+            }
+        })();
+
+        function scratch(ctx){
+            document.onselectstart = function(e){
+                e = e || window.event;
+                e.preventDefault();
+            };
+            document.ondrag = function(e){
+                e = e || window.event;
+                e.preventDefault();
+            };
+            canvas.onmousedown = function(e){
+                e = e || window.event;
+
+                let downX = e.offsetX;
+                let downY = e.offsetY;
+                ctx.beginPath();
+                ctx.globalCompositeOperation = 'destination-out';
+                ctx.lineWidth = 10;
+                ctx.lineCap = 'round';
+                ctx.lineJoin = 'round';
+                ctx.moveTo(downX,downY);
+                canvas.onmousemove = function(e){
+                    e = e || window.event;
+                    let x = e.offsetX;
+                    let y = e.offsetY;
+                    ctx.stroke();
+                    ctx.lineTo(x,y);
+                }
+                canvas.onmouseup = function(e){
+                    e = e || window.event;
+                    canvas.onmousemove = null;
+                }
+            }
+        };
+
+        function content(){
+            let span = document.getElementsByTagName('span')[0];
+            let arr = ['100 dollars','200 dollars','Thank you','300 dollars','Thank you','400 dollars','Thank you']
+            let index = Math.floor(Math.random()*arr.length);
+            span.innerHTML = arr[index];
+        }
+
+        function layer(ctx){
+            ctx.save();
+            ctx.beginPath();
+            ctx.fillStyle = '#666';
+            ctx.fillRect(0,0,200,100);
+            ctx.restore();
+        }
+    </script>
+</body>
+</html>
