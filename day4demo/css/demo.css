@@ -1,0 +1,40 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+.contain{
+    position: relative;
+}
+#wrap{
+    /* I don't like to a fitted range in order to change in the furture */
+    /* width:560px;
+    height:560px; */
+    background-image:url(../img/block.gif);
+    margin:100px auto;
+    position: relative;
+}
+#wrap div{
+    position: absolute;
+    width:35px;
+    height:35px;
+}
+#wrap div img{
+    position: absolute;
+    bottom:0;
+}
+#wrap div.ball img{
+    left: 50%;
+    top:50%;
+    margin-left:-15px;
+    margin-top: -15px;
+}
+#wrap div.person img{
+    left: 50%;
+    margin-left: -25px;
+}
+#btn{
+    position: absolute;
+    left:50%;
+    transform: translateX(-50%);
+    top:-10%;
+}
