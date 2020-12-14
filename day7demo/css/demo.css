@@ -1,0 +1,98 @@
+      *{
+            margin: 0;
+            padding: 0;
+        }       
+        table{
+            margin:50px auto;
+            background-color: aquamarine;
+            border-collapse: collapse;
+        }
+        tr{
+            height: 150px;
+        }
+        th{
+        
+       
+            border: 1px solid red;
+        }
+
+        td{
+            width: 250px;
+    
+            border: 1px solid red;
+            text-align: center;
+ 
+        }
+        tr:nth-child(1){
+            height: 80px;
+        }
+        tr:nth-child(5){
+            height: 80px;
+        }
+
+
+        .minus{
+            float: left;
+            display: block;
+            width:30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: red;
+            margin-left: 80px;
+        }
+        .add{
+            float: left;
+            display: block;
+            width:30px;
+            height: 30px;
+            border-radius: 50%;
+        
+        }
+        .quantities{
+            float: left;
+            width: 60px;
+            height: 30px;
+            background-color: darkgray;
+            text-align: center;
+        }
+    
+        .goods{
+            width: 150px;
+            height: 90px;
+        }
+        .add>img{
+            width:30px;
+            height: 30px;
+            border-radius: 50%;
+
+        }
+        .minus>img{
+            width:30px;
+            height: 30px;
+            border-radius: 50%;
+
+        }
+
+        .box{
+            width:25px;
+            height:25px;
+            background-color:white;
+            margin:auto;
+        }
+        .box1{
+            width:15px;
+            height:15px;
+            background-color:white;
+            display:inline-block;
+            margin-left: 5px;
+        }
+        .box1>img{
+            width:15px;
+            height:15px;
+            display:none;
+        }
+        .box>img{
+            width:25px;
+            height:25px;
+            display:none;
+        }
