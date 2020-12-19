@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p id="location">click to require your current location</p>
+    <span id="speed"></span>
+    <p id="times"></p>
+    <button onclick="handleLoaction()">click here</button>
+    <script>
+        let geo = document.getElementById('location');
+        let times = document.getElementById('times');
+        let speed = document.getElementById('speed');
+        let count = 3;
+        let timer = null;
+        function handleLoaction(){
+            if(navigator.geolocation){
+                timing()
+                geo.innerHTML = `your browser supports Geolocaton API`;
+                setTimeout(()=>{navigator.geolocation.getCurrentPosition(onSuc,onErr)},4000)
+            }else{
+                geo.innerHTML = 'please, your current browser does not support Geolocation API '
+            }
+        }
+        function onSuc(res){
+            geo.innerHTML = `
+                longitude:${res.coords.longitude}<br>
+                latitude:${res.coords.latitude}<br>
+                altitude:${res.coords.altitude}<br>
+                altitudeAccuracy:${res.coords.altitudeAccuracy}<br>
+                Accuracy:${res.coords.Accuracy}<br>
+                speed:${res.coords.speed}<br>
+            `
+        }
+        function onErr(err){
+            geo.innerHTML = 'the user is denied to get information';
+        }
+        function timing(){
+
+           timer =  setInterval(()=>{
+                speed.innerHTML = `${count--}s`;
+                if(count === -1){
+                    clearTimeout(timer)
+                    speed.innerHTML = '';
+                }
+            },1000)
+        }
+    </script>
+</body>
+</html>

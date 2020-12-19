@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p id="location">click to require your information</p>
+    <button onclick="startWatch()">START</button>
+    <button onclick="stopWatch()">STOP</button>
+    <script>
+        let geo = document.getElementById('location');
+        let count = 0;
+        let watchId;
+        function startWatch() {
+            if(navigator.geolocation){
+                let options = {enableHighAccuracy: true,timemout:1000,}
+                watchId =  navigator.geolocation.watchPosition(onSuc,onErr,options)
+            }else{
+                geo.innerHTML = 'please, your current browser does not support Geolocation API '
+            }
+        }
+        function stopWatch() {
+            navigator.geolocation.clearWatch(watchId)
+        }
+
+        function onSuc(res){
+            geo.innerHTML = `
+                count:${count++}<br>
+                longitude:${res.coords.longitude}<br>
+                latitude:${res.coords.latitude}<br>
+                altitude:${res.coords.altitude}<br>
+                altitudeAccuracy:${res.coords.altitudeAccuracy}<br>
+                Accuracy:${res.coords.Accuracy}<br>
+                speed:${res.coords.speed}<br>
+            `
+        }
+        function onErr(err){
+            switch(err.code){
+                case err.PERMISSION_DENIED:
+                    geo.innerHTML = 'the user is denied to get information'
+                    break;
+            }
+        }
+    </script>
+</body>
+</html>
