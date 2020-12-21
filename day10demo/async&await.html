@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        ul{
+            list-style-type: none;
+        }
+    </style>
+</head>
+<body>
+    
+    <input type="submit" value="Render" id="btn">
+    <ul>
+
+    </ul>
+    <ul>
+        
+    </ul>
+
+    <script type="text/javascript">
+        let btn = document.getElementById('btn')
+        let ul = document.querySelectorAll('ul');
+        let filmApi = 'https://m.maizuo.com/gateway?cityId=110100&pageNum=1&pageSize=10&type=1&k=7919650'
+        let todosApi = 'http://jsonplaceholder.typicode.com/posts?_limit=20'
+        
+
+        function ajax({url='',type='GET',dataType='json'}){
+            return new Promise((resolve, reject) =>{
+                if(window.XMLHttpRequest){
+                    var xhr = new XMLHttpRequest();
+                }else{
+                    var xhr = new ActiveXObject('Microsoft.XMLHTTP');
+                }
+
+                xhr.open(type,url,true);
+                xhr.setRequestHeader('X-Client-Info','{"a":"3000","ch":"1002","v":"5.0.4","e":"16084672032938535019544577","bc":"110100"}')
+                xhr.setRequestHeader('X-Host','mall.film-ticket.film.list')
+                xhr.send(null);
+                xhr.onload = function(){
+                    if(xhr.status == 200){
+                        resolve(xhr.responseText);
+                    }else{
+                        reject(xhr.statusText)
+                    }
+                }
+                xhr.onError = function(err){
+                    reject(err)
+                }
+            })
+        }
+        
+        btn.onclick = function(){
+            handle();
+        }
+        
+        async function handle(){
+            let film = await ajax({
+                url:filmApi,
+                dataType:'json',
+            }).then(data =>{
+                let cont = JSON.parse(data)
+                for(let i = 0; i < cont.data.films.length;i++){
+                            let li = document.createElement('li');
+                            ul[1].appendChild(li);
+                            li.innerHTML = `
+                                <span>name:${cont.data.films[i].name}</span>
+                                <br>
+                                <span>language:${cont.data.films[i].language}</span>
+                                <br>
+                                <span>nation:${cont.data.films[i].nation}</span>
+                                <br>
+                                <img src="${cont.data.films[i].poster}" alt="">                            
+                            `
+                    }
+            },(err) =>{
+                console.log(err)
+            });
+            let todos = await ajax({
+                url:todosApi,
+                dataType:'json',
+            }).then(data =>{
+                let cont = JSON.parse(data)
+                for(let i=0; i<cont.length; i++){
+                    let li = document.createElement('li');
+                    ul[0].appendChild(li);
+                    li.innerHTML = `
+                                <span>id:${cont[i].id}</span><br>
+                                <span>title:${cont[i].title}</span><br>
+                                <span>body:${cont[i].body}</span><br>                            
+                          `
+                }
+            },(err) =>{
+                console.log(err)
+            });
+        }
+     
+
+
+    </script>
+</body>
+</html>
