@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        ul{
+            list-style-type: none;
+        }
+    </style>
+</head>
+<body>
+    <input type='submit' value='render' id="btn"/>
+    
+    <ul>
+        <!-- <li>
+            <span>name:</span>
+            <br>
+            <span>language:</span>
+            <br>
+            <span>nation:</span>
+            <br>
+            <img src="" alt="">
+        </li> -->
+    </ul>
+    <script type='text/javascript'>
+        let btn = document.getElementById('btn');
+        let ul = document.querySelector('ul');
+        let api = 'https://m.maizuo.com/gateway?cityId=110100&pageNum=1&pageSize=10&type=1&k=7919650'
+        btn.onclick = function(){
+            if(window.XMLHttpRequest){
+                var xhr = new XMLHttpRequest();
+            }else{
+                var xhr = new ActiveXObject('Microsoft.XMLHTTP');
+            }
+            xhr.open('GET',api);
+            xhr.setRequestHeader('X-Client-Info','{"a":"3000","ch":"1002","v":"5.0.4","e":"16084672032938535019544577","bc":"110100"}')
+            xhr.setRequestHeader('X-Host','mall.film-ticket.film.list')
+            xhr.send(null);
+            xhr.onreadystatechange = function(){
+                if(xhr.readyState === 4 && xhr.status === 200){
+                    let content = JSON.parse(xhr.responseText);
+                    console.log(content.data.films);
+                    for(let i = 0; i < content.data.films.length;i++){
+                            let li = document.createElement('li');
+                            ul.appendChild(li);
+                            li.innerHTML = `
+                                            <span>name:${content.data.films[i].name}</span>
+                                            <br>
+                                            <span>language:${content.data.films[i].language}</span>
+                                            <br>
+                                            <span>nation:${content.data.films[i].nation}</span>
+                                            <br>
+                                            <img src="${content.data.films[i].poster}" alt="">                            
+                            `
+                    }
+                }
+            }
+
+        }
+    </script>
+</body>
+</html>

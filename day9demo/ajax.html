@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        ul{
+            list-style-type: none;
+        }
+    </style>
+</head>
+<body>
+    <input type="submit" value="Require data" id="btn"/>
+    <ul>
+        <!-- <li>
+            <span>id:</span><br>
+            <span>title:</span><br>
+            <span>body:</span><br>
+        </li> -->
+    </ul>
+    <script type="text/javascript">
+        let btn = document.getElementById('btn');
+        let ul = document.querySelector('ul');
+        let api = 'http://jsonplaceholder.typicode.com/posts?_limit=5'
+        btn.onclick = function(){
+            if(window.XMLHttpRequest){
+                var xhr = new XMLHttpRequest();
+            }else{
+                var xhr = new ActiveXObject('Microsoft.XMLHTTP');
+            }
+            xhr.open('GET',api);
+            xhr.send(null)
+            xhr.onreadystatechange = function(){
+                if(xhr.readyState == 4 && xhr.status == 200){
+                    let text = JSON.parse(xhr.responseText)
+                    console.log(text[0])
+                    for(let i = 0; i < text.length; i++){
+                        let li = document.createElement('li');
+                         ul.appendChild(li);
+                            li.innerHTML = `
+                                    <span>id:${text[i].id}</span><br>
+                                    <span>title:${text[i].title}</span><br>
+                                    <span>body:${text[i].body}</span><br>                            
+                                `
+                    }
+                }
+            }
+        }
+
+    </script>
+</body>
+</html>
