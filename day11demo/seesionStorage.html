@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button id="addData">addData</button>    
+    <button id="getData">getData</button>    
+    <button id="delData">delete Data</button>    
+    <button id="clear">clear</button>    
+    <input type="text" name="txt" id="txt" placeholder="enter usernames"/>
+    <input type="text" name="txt" id="sex" placeholder="enter your gendar"/>
+    <p style='color:red;' id="vatx"></p>
+    <script>
+
+       var add = document.getElementById('addData');
+       var gets = document.getElementById('getData');
+       var del = document.getElementById('delData');
+       var txt = document.getElementById('txt');
+       var sex = document.getElementById('sex');
+       var va = document.getElementById('vatx');
+       var clear = document.getElementById('clear')
+       add.onclick = function(){
+          
+            sessionStorage.setItem('uname',txt.value);
+            sessionStorage.setItem('sex',sex.value);
+       }
+       gets.onclick = function(){
+          
+           var val = sessionStorage.getItem('uname');
+           var sl = sessionStorage.getItem('sex');
+           va.innerHTML = val + sl;
+       }
+       del.onclick = function(){
+            sessionStorage.removeItem('uname');
+            sessionStorage.removeItem('sex');
+       }
+       clear.onclick = function(){
+           sessionStorage.clear()
+       }
+    </script>
+    
+</body>
+</html>
