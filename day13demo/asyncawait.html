@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script type="text/javascript">
+        async function fn(){
+            console.log(1);
+            let result = await new Promise((resolve, reject)=>{
+                console.log(2);
+                setTimeout(()=>{
+                    console.log(3)
+                    resolve(4)
+                },100)
+            })
+            console.log(5)
+            let result1 = await new Promise((resolve, reject)=>{
+                console.log(6);
+                setTimeout(()=>{
+                    console.log(7)
+                    resolve(8)
+                },100)
+            })
+            console.log(result)
+            console.log(result1)
+        }
+        fn();
+        console.log(9);
+        console.log(10);
+        /*
+        the order is 1 2 9 10 3 5 6 7 4 8
+        */
+    </script>
+</body>
+</html>
