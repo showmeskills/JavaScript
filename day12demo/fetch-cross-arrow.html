@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <button id="btn">点击</button>
+    <script>
+        let btn = document.getElementById('btn');
+        btn.onclick = function(){
+
+            fectchF4()
+        }
+        function fectchF4() {
+    // fetch('http://localhost:8080/weather/queryCurWeatherNull', { method: "GET", mode: "no-cors" })
+    //fetch('http://localhost:8080/weather/queryCurWeatherNull', { method: "post" }) //大写小写的post均可
+     fetch('https://www.jbhifi.com.au/', { method: "GET", headers: { "Access-Control-Allow-Origin": "*" } })
+        .then(response => {
+            console.log(response.ok)
+            if (response.ok) {
+                return response.json()
+            } else {
+                return Promise.reject({
+                    status: response.status,
+                    statusText: response.statusText
+                })
+            }
+        })
+        .then(data => {
+            console.log('data is', data)
+            alert(data[0].areaId)
+        })
+        .catch(error => {
+            alert(error.status + error.statusText)
+            if (error.status === 404) {
+                console.log(error.status + error.statusText)
+            } else if (error.status === 403) {
+                console.log(error.status + error.statusText)
+            }
+        })
+}
+    </script>
+</body>
+</html>
