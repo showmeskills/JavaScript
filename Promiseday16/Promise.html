@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1 id="title"></h1>
+    <button id="btn">click</button>
+
+    <script type="text/javascript">
+        let title = document.getElementById('title');
+        let btn = document.getElementById('btn');
+        title.innerHTML = 'The demo is about Promise'
+        let random = (m,n)=>{
+            return Math.ceil(Math.random()*(n-m+1))+m-1;
+        };
+
+        let demo = ()=>{
+            return new Promise((resolve, reject)=>{
+                setTimeout(()=>{
+                    let number = random(1,100)
+                    if(number <= 30){
+                        resolve(number);
+                    }else{
+                        reject(number)
+                    }
+                },1000)
+            })
+        }
+
+        btn.addEventListener('click',()=>{
+            demo().then((value)=>{
+                alert('you are luck your number is' + value)
+                title.innerHTML = 'click again'
+            },(reason)=>{
+                alert('you are unluck your number is' + reason)
+                title.innerHTML = 'click again'
+            })
+        })
+       
+        
+    </script>
+</body>
+</html>
