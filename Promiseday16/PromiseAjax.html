@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button id="btn">click</button>
+    <div class='container'></div>
+    <script type="text/javascript">
+    let api ='https://m.maizuo.com/gateway?cityId=440300&pageNum=1&pageSize=10&type=2&k=4971658'
+    let btn = document.getElementById('btn');
+    let container = document.getElementsByClassName('container')[0];
+
+        btn.addEventListener('click', function(){
+            const p = new Promise((resolve, reject)=>{
+                const xhr = new XMLHttpRequest();
+                xhr.open('GET',api)
+                xhr.setRequestHeader('X-Client-Info','{"a":"3000","ch":"1002","v":"5.0.4","e":"16084672032938535019544577"}')
+                xhr.setRequestHeader('X-Host','mall.film-ticket.film.list')
+                xhr.send();
+                xhr.onreadystatechange = function(){
+                    if(xhr.readyState === 4){
+                        if(xhr.status >= 200 && xhr.status < 300){
+                           resolve(xhr.response);
+                        }else{
+                            reject(xhr.statusText)
+                        }
+                    }
+                }
+            })
+
+
+            p.then(value => {
+                container.innerHTML = value
+            },reasons =>{
+                container.innerHTML = reason
+            })
+        })
+    </script>
+</body>
+</html>
