@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id='app'>
+        <ul v-if="data.length">
+            <li v-for="(items,idx) in data" :key="idx">
+                {{idx}} --- {{items}}
+            </li>
+        </ul>
+        <h1 v-else>{{msg}}</h1>
+        <button @click='handleClick'>Request</button>
+        <button @click='handle'>Clear</button>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        new Vue({
+            el:'#app',
+            data(){
+                return{
+                    msg:'there are not any data available',
+                    data:[],
+                    api:'http://jsonplaceholder.typicode.com/posts?_limit=20',
+                    promise:null,
+
+                }
+            },
+            mounted(){
+                let url = new Promise((resolve, reject) =>{
+                        let xhr
+                        if(window.XMLHttpRequest){
+                            xhr = new XMLHttpRequest();
+                        }else{
+                            xhr = new ActiveXObject('Microsoft.XMLHTTP')
+                        }
+                        xhr.open('GET',this.api)
+                        xhr.send();
+                        xhr.onreadystatechange = function(){
+                            if(xhr.readyState === 4){
+                                if(xhr.status >= 200 && xhr.status <=300){
+                                    resolve(xhr.response)
+                                }else{
+                                    reject(xhr.status)
+                                }
+                            }
+                        }
+                    })
+                return this.promise = url
+            },
+            methods:{
+                handleClick(){
+                    this.promise.then(value=>{
+                        this.data = this.data.concat(value)
+                    },
+                    reasons=>{
+                        console.log(reasons)
+                    })
+                },
+                handle(){
+                    this.data = []
+                }
+            },
+        })
+    </script>
+
+</body>
+</html>
