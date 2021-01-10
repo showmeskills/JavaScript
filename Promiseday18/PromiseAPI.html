@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+
+    <script>
+        let p = Promise.resolve(null)
+        console.log(p);
+
+        let a = Promise.resolve(new Promise((resolve, reject) =>{resolve(1)}))
+        console.log(a)
+        let b = Promise.resolve(new Promise((resolve, reject) =>{reject(1)}))
+        b.catch(err=>console.log(err))
+        console.log(b)
+
+
+        let c = Promise.reject(null)
+        c.catch(err=>console.log(err))
+        console.log(c)
+        let d = Promise.reject(new Promise((resolve,reject)=>{resolve(1)}))
+        d.catch(err=>console.log(err))
+        console.log(d)
+
+        let e = Promise.resolve(1)
+        let f = Promise.resolve(2)
+        let g = Promise.resolve(3)
+        let h = new Promise((resolve, reject) =>{resolve(4)})
+        let pArr = Promise.all([e,f,g,h])
+        console.log(pArr)
+        pArr.then(value=>console.log(pArr))
+
+
+        let k = new Promise((resolve, reject) =>{setTimeout(()=>{reject(3)},1000)})
+        let i = Promise.resolve(1)
+        let j = Promise.resolve(2)
+        let l = new Promise((resolve, reject) =>{setTimeout(()=>{reject(4)},1000)})
+
+        let m = Promise.race([k,i,j,l])
+        console.log(m)
+
+    </script>
+</body>
+</html>
