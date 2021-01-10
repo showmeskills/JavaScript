@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="submit" value="Render" id="btn"/>
+    <ul>
+        <!-- <li>
+            <span>name:</span>
+            <br>
+            <span>language:</span>
+            <br>
+            <span>nation:</span>
+            <br>
+            <img src="" alt="">
+        </li> -->
+    </ul>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js"></script>
+    <script>
+         let ul = document.querySelector('ul')
+         let $api = 'https://m.maizuo.com/gateway?cityId=110100&pageNum=1&pageSize=10&type=1&k=7919650'
+        $('#btn').click(function(){
+            $.ajax({
+                method:'GET',
+                url:$api,
+                dataType:'json',
+                beforeSend(request){
+                        request.setRequestHeader('X-Client-Info','{"a":"3000","ch":"1002","v":"5.0.4","e":"16084672032938535019544577","bc":"110100"}');
+                        request.setRequestHeader('X-Host','mall.film-ticket.film.list');
+                },
+                success(data){
+                    //console.log(data.data.films);
+                    let content = data.data.films
+                    for(let i = 0; i < content.length;i++){
+                            let li = document.createElement('li');
+                            ul.appendChild(li);
+                            li.innerHTML = `
+                                            <span>name:${content[i].name}</span>
+                                            <br>
+                                            <span>language:${content[i].language}</span>
+                                            <br>
+                                            <span>nation:${content[i].nation}</span>
+                                            <br>
+                                            <img src="${content[i].poster}" alt="">                            
+                            `
+                    }
+                },
+                error(err){
+                    console.log(err)
+                },
+            })
+        })
+    </script>
+</body>
+</html>
