@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+
+    </div>
+    <button id="btn">click</button>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script type="text/javascript">
+     let api ='https://m.maizuo.com/gateway?cityId=440300&pageNum=1&pageSize=10&type=2&k=4971658'
+     let btn = document.getElementById('btn');
+    let container = document.getElementsByClassName('container')[0];
+        let ajax = (url)=>{
+           return new Promise((resolve, reject)=>{
+                    const xhr = new XMLHttpRequest();
+                    xhr.open('GET',url)
+                    xhr.setRequestHeader('X-Client-Info','{"a":"3000","ch":"1002","v":"5.0.4","e":"16084672032938535019544577"}')
+                    xhr.setRequestHeader('X-Host','mall.film-ticket.film.list')
+                    xhr.send();
+                    xhr.onreadystatechange = function(){
+                        if(xhr.readyState === 4){
+                            if(xhr.status >= 200 && xhr.status < 300){
+                            resolve(xhr.response);
+                            }else{
+                            reject(xhr.statusText)
+                            }
+                        }
+                    }
+                })
+        }
+        
+        btn.addEventListener('click', async function(){
+            try{
+                let value = await ajax(api);
+                console.log(value);
+            }catch(e){
+                console.log(e)
+            }
+            let result = await ajax(api)
+            .then(value =>console.log(value),reason=>console.log(reason))
+
+        })
+        
+        
+
+    </script>
+</body>
+</html>
