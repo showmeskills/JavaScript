@@ -226,12 +226,16 @@
   flex-direction: column;
   justify-content: center;
   text-align: center;
+  /*文字样式*/
 }
 .bar-item .imgs {
   width: 0.666666rem;
   height: 0.666666rem;
   background-size: 100%;
   margin-bottom: 0.053333rem;
+}
+.bar-item .active {
+  color: #00a862;
 }
 .bar-item:nth-child(1) .imgs {
   background-image: url("https://www-static.chinacdn.starbucks.com.cn/prod/assets/icons/icon-home.svg");

@@ -1,0 +1,71 @@
+/*调整网站布局 start*/
+.starbucks-app .content {
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+.starbucks-app .content-item {
+  height: 100%;
+  width: 100%;
+  display: none;
+}
+.starbucks-app .content-item.active {
+  display: block;
+}
+/*调整网站布局 end*/
+.secd {
+  padding: 0.426667rem 0.426667rem 0 0.426667rem;
+}
+.mybody {
+  overflow: hidden;
+}
+/*菜单页 start*/
+#nav .dsp1 {
+  font-size: 0.586667rem;
+  font-weight: 550;
+  margin-bottom: 0.32rem;
+}
+/*导航部分*/
+.tabs-wrapper {
+  margin: 0.426667rem 0;
+}
+.tabs-wrapper ul {
+  display: flex;
+  flex-wrap: nowrap;
+  font-size: 0.426667rem;
+  color: rgba(0, 0, 0, 0.5);
+}
+.tabs-wrapper ul li {
+  margin-right: 0.426667rem;
+  line-height: 2;
+}
+.tabs-wrapper ul .li-active {
+  font-weight: 700;
+  color: rgba(0, 0, 0, 0.8);
+  border-bottom: 0.08rem solid #00A682;
+}
+/*内容部分*/
+.menu-content {
+  margin-bottom: 1.6rem;
+}
+.menu-content .menu-imgs {
+  margin: 0;
+  width: 100%;
+}
+.menu-content .menu-imgs img {
+  width: 100%;
+  height: auto;
+}
+.wrapper {
+  padding: 0.933333rem 0;
+}
+.wrapper h2 {
+  font-size: 0.586667rem;
+}
+.wrapper p {
+  line-height: 1.5;
+  font-size: 0.426667rem;
+  color: rgba(0, 0, 0, 0.8);
+  padding: 0.64rem;
+}
+/*菜单页 end*/
